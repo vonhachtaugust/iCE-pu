@@ -1,0 +1,39 @@
+# ##############################################################################
+
+# iCEcube PCF
+
+# Version:            2017.08.27940
+
+# File Generated:     Jun 23 2020 21:12:30
+
+# Family & Device:    iCE40HX1K
+
+# Package:            TQ144
+
+# ##############################################################################
+
+
+# Clock
+set_io clk 21
+
+# UART Ctrl
+set_io dcd 1
+set_io dsr 2
+set_io dtr 3
+set_io cts 4
+set_io rts 7
+
+# UART data
+set_io RS232_Tx_TTL 8
+set_io RS232_Rx_TTL 9
+
+# LEDs
+set_io LED[0] 96
+set_io LED[1] 97
+set_io LED[2] 98
+set_io LED[3] 99
+
+set_io_ff LED[0] -out OFF
+set_io_ff LED[2] -out OFF
+
+
