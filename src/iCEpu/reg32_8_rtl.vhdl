@@ -41,13 +41,13 @@ entity reg32_8 is
     -- Select port
     sel       : in std_logic_vector(2 downto 0);
     selA      : in std_logic_vector(2 downto 0);
-    selB      : in std_logic_vector(2 downto 0);
+    selB      : in std_logic_vector(2 downto 0)
   );
 end entity reg32_8;
 architecture rtl of reg32_8 is
 
   type t_regs is array(0 to 7) of std_logic_vector(31 downto 0);
-  signal regs : t_regs := (others => '0');
+  signal regs : t_regs := (others => (others => '0'));
 
 begin
 

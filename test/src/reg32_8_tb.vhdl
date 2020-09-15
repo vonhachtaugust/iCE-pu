@@ -26,6 +26,6 @@ use ieee.numeric_std.all;
 entity reg32_8_tb is
 end entity reg32_8_tb;
 
-architecture rtl of reg32_8 is
+architecture tb of reg32_8_tb is
 begin
-end architecture rtl;
+end architecture tb;

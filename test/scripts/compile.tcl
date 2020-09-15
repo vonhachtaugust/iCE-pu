@@ -8,11 +8,14 @@ puts {
 # modify the rest of the script.
 
 set library_file_list {
-                           design_library {counter.vhd}
-                           test_library   {countertb.vhd
-                                           countercf.vhd}
+  design_library {
+    C:/Development/VHDL/icePU/src/icePU/reg32_8_rtl.vhdl
+    }
+  test_library   {
+    C:/Development/VHDL/icePU/test/src/reg32_8_tb.vhdl
+  }
 }
-set top_level              test_library.Cfg_CounterTB
+set top_level              test_library.reg32_8_tb
 set wave_patterns {
                            /*
 }
@@ -48,7 +51,7 @@ foreach {library file_list} $library_file_list {
   foreach file $file_list {
     if { $last_compile_time < [file mtime $file] } {
       if [regexp {.vhdl?$} $file] {
-        vcom -93 $file
+        vcom -2008 $file
       } else {
         vlog $file
       }
