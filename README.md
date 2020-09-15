@@ -1,4 +1,4 @@
-# iCE-pu
+# iCEpu
 CPU on Lattice iCEstick?
 
 Hardware: Lattice iCEstick Evaluation Kit
