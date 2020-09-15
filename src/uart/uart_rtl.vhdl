@@ -1,22 +1,22 @@
 -------------------------------------------------------------------------------
--- Title      : uart
--- Project    :
+-- Title      : UART
+-- Project    : icePU
 -------------------------------------------------------------------------------
--- File       : uart_top.vhdl
+-- File       : uart_rtl.vhdl
 -- Author     : John Doe  <john@doe.com>
 -- Company    :
 -- Created    : 2020-06-19
 -- Last update: 2020-07-09
 -- Platform   :
--- Standard   : VHDL'93/02
+-- Standard   : VHDL'2008
 -------------------------------------------------------------------------------
--- Description: uart top
+-- Description: uart top component
 -------------------------------------------------------------------------------
 -- Copyright (c) 2020
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
--- 2020-06-19  1.0      Augus   Created
+-- 2020-06-19  1.0      August  Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -25,7 +25,7 @@ use ieee.numeric_std.all;
 
 -- RS-232 devices may be classified as Data Terminal Equipment (DTE) or Data Circuit-terminating Equipment (DCE)
 
-entity uart_top is
+entity uart is
   port
   (
     clk          : in std_logic;
@@ -50,8 +50,8 @@ entity uart_top is
     RS232_Rx_TTL : in std_logic
   );
 
-end entity uart_top;
-architecture rtl of uart_top is
+end entity uart;
+architecture rtl of uart is
 
   -- design clock frequency
   constant freq                   : integer                      := 11520000;

@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 -- Title      : Register file
--- Project    : iCEpu
+-- Project    : icePU
 -------------------------------------------------------------------------------
--- File       : register_file.vhdl
+-- File       : reg32_8_rtl.vhdl
 -- Author     : August  <vonhachtaugust@gmail.com>
 -- Company    :
 -- Created    : 2020-07-01
@@ -10,7 +10,7 @@
 -- Platform   : Lattice iCEstick Evaluation Kit
 -- Standard   : VHDL'08
 -------------------------------------------------------------------------------
--- Description: Register file
+-- Description: Register file rtl
 -------------------------------------------------------------------------------
 -- Copyright (c) 2020
 -------------------------------------------------------------------------------
