@@ -4,3 +4,4 @@ test/scripts/test_library/*
 test/scripts/modelsim.ini
 test/scripts/transcript
 test/scripts/vsim.wlf
+test/scripts/start_time.txt
