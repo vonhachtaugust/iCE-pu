@@ -1,7 +1,3 @@
 # Generated file from compilation
-test/scripts/design_library/*
-test/scripts/test_library/*
-test/scripts/modelsim.ini
+test/scripts/temp/*
 test/scripts/transcript
-test/scripts/vsim.wlf
-test/scripts/start_time.txt

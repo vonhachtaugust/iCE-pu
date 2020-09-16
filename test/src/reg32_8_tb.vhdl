@@ -23,7 +23,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library design_library;
+library icePU;
 
 entity reg32_8_tb is
 end entity reg32_8_tb;
@@ -51,7 +51,7 @@ begin
   tb_clk <= '0' when sim_done else
     not tb_clk after c_tb_clk_period/2;
 
-  i_DUT : entity design_library.reg32_8(rtl)
+  i_DUT : entity icePU.reg32_8(rtl)
     port map
     (
       clk       => tb_clk,

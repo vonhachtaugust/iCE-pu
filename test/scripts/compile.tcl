@@ -6,16 +6,44 @@ puts {
 # Simply change the project settings in this section
 # for each new project. There should be no need to
 # modify the rest of the script.
+set workDir [pwd]
+set workLevel 0
+
+# Placeholder file which confirms the existence of temp folder
+set placeholderFile "placeholder.dat"
+
+# Path to script for recursion
+set scriptDir $workDir/../compile.tcl
+
+# Recursive compile and generated garbage files into a temp folder
+if { [file exists $placeholderFile] == 0 } {
+  puts "Creating the temp folder"
+  file mkdir $workDir/temp
+  cd temp
+  set fp [open $placeholderFile w]
+  puts $fp "keep this file"
+  close $fp
+  set script $workDir/compile.tcl
+  set workLevel 1
+}
+
+# Pathing (with logic for recursion)
+if { $workLevel == 1 } {
+  set rootDir $workDir/../..
+  puts "rootDir set to $rootDir"
+} else {
+  set rootDir $workDir/../../..
+  puts "rootDir set to $rootDir"
+}
 
 set library_file_list {
-  design_library {
-    C:/Development/VHDL/icePU/src/icePU/reg32_8_rtl.vhdl
-    }
-  test_library   {
-    C:/Development/VHDL/icePU/test/src/reg32_8_tb.vhdl
-  }
-}
-set top_level              test_library.reg32_8_tb
+  
+  icePU   { $rootDir/src/icePU/reg32_8_rtl.vhdl }
+  
+  test    { $rootDir/test/src/reg32_8_tb.vhdl }  
+} 
+
+set top_level              test.reg32_8_tb
 set wave_patterns {
                            /*
 }
@@ -27,14 +55,21 @@ set wave_radices {
 # After sourcing the script from ModelSim for the
 # first time use these commands to recompile.
 
-proc r  {} {uplevel #0 source compile.tcl}
-proc rr {} {global last_compile_time
-            set last_compile_time 0
-            r                            }
-proc q  {} {quit -force                  }
+proc r  {} {
+  global script
+  uplevel #0 source $script
+}
+proc rr {} {
+  global last_compile_time
+  set last_compile_time 0
+  r                            
+}
+proc q  {} {
+  quit -force                  
+}
 
 #Does this installation support Tk?
-set tk_ok 1
+set tk_ok 0
 if [catch {package require Tk}] {set tk_ok 0}
 
 # Prefer a fixed point font for the transcript
@@ -45,24 +80,28 @@ set time_now [clock seconds]
 if [catch {set last_compile_time}] {
   set last_compile_time 0
 }
-foreach {library file_list} $library_file_list {
-  vlib $library
-  vmap work $library
-  foreach file $file_list {
+
+foreach {name file_list} $library_file_list {
+  puts "Compiling files for libraray $name"
+  vlib $name
+  foreach path $file_list {
+    set file [subst -nocommands $path]
+    puts "Compiling library $file"
     if { $last_compile_time < [file mtime $file] } {
       if [regexp {.vhdl?$} $file] {
-        vcom -2008 $file
-      } else {
-        vlog $file
+        vcom -2008 -work $name $file
+      } else { 
+        vlog -work $name $file
       }
-      set last_compile_time 0
     }
+    set last_compile_time 0
   }
 }
+
 set last_compile_time $time_now
 
 # Load the simulation
-eval vsim $top_level
+eval vsim -voptargs=+acc $top_level
 
 # If waves are required
 if [llength $wave_patterns] {
@@ -78,8 +117,8 @@ if [llength $wave_patterns] {
   }
 }
 
-# Run the simulation
-run -all
+# Run the simulation (disabled by default)
+# run -all
 
 # If waves are required
 if [llength $wave_patterns] {
